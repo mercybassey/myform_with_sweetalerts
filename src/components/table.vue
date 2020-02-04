@@ -125,9 +125,12 @@ addUser() {
   if (willAdd) {
       if(this.user.name === ''|| this.user.role==='' || this.user.email === '' || this.user.sex==='') {
           return swal('Error','Please fill the form correctly','error')
-      }else {
+      }
+      else if (!this.validEmail(this.user.email)) {
+        return swal('Error','Email is not valid','error')
+      }
+      else {
       this.persons.push(this.user)
-
       }
     swal("This user has been added", {
       icon: "success",
@@ -170,17 +173,10 @@ addUser() {
         updatePerson(index){
             this.persons.push(index);
         },
-        validEmail(){
-        
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email.value)){
-                alert('congrats your email has been sent!')
-            }else{
-                alert('Sorry! This email is not valid')
-            }``
-                
-        
+        validEmail(email){
+            let isValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+            return isValid
         }
-      
         
     }
 
